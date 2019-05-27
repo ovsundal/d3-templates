@@ -58,7 +58,7 @@ class BarChart extends Component {
             .text("The world's tallest buildings");
 
         // y label
-        canvas.append("text")
+        const yLabel = canvas.append("text")
             .attr("class", "y axis-label")
             .attr("x", - (height/2))
             .attr("y", -60)
@@ -81,8 +81,8 @@ class BarChart extends Component {
 
             const update = function(){
 
-                scaleXAxis.domain(data.map(({name}: {name: string}) => name))
-                scaleYAxis.domain([0,d3.max(data, ({height}) => height)])
+                scaleXAxis.domain(data.map(({name}: {name: string}) => name));
+                scaleYAxis.domain([0,d3.max(data, ({height}) => height)]);
 
                 const yAxisCall = d3.axisLeft(scaleYAxis)
                     .ticks(5)
@@ -101,6 +101,11 @@ class BarChart extends Component {
 
                 // Y-axis
                 yAxisGroup.call(yAxisCall);
+
+                // by adding a flag it is possible to swap between different data sets (add different data source based on flag value)
+                const yLabelText = flag ? 'Height (m)' : 'Mode 2';
+
+                yLabel.text(yLabelText);
 
 
                 // JOIN new data with old elements
